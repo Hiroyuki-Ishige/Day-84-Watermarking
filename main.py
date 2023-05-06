@@ -66,9 +66,16 @@ def upload_clicked():
     # show image on cavas
     canvas_1.create_image(0, 0, anchor="nw", image=img1_tk)
 
-    # print watermark text
-    print(input_watermark.get())
+    # save image with watermark
+    file = filedialog.asksaveasfile(mode='w', defaultextension=".jpg",
+                                    filetypes=(("jpg files", "*.jpg"), ("all files", "*.*")))
 
+    rgb_image = out.convert("RGB")
+
+    if file:
+        rgb_image.save(file)  # saves the image to the input file name.
+
+#TODO create save button
 
 ### Set main window
 window = Tk()
