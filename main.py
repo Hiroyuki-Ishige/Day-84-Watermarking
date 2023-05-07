@@ -18,7 +18,7 @@ https://tat-pytone.hatenablog.com/entry/2021/09/26/131945 ### add watermark
 
 import tkinter
 from tkinter import *
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk, ImageDraw, ImageFont
 
 ### fixed variable
@@ -29,6 +29,7 @@ HEIGHT = 400
 # Function to upload
 def upload_clicked():
     global img1_tk  # need to set as global variable because main window is outside of this function
+    global out
 
     # import image file
     filename = filedialog.askopenfilename(initialdir="C:/Users/Hiroyuki Ishige/Pictures", title="Selected File",
@@ -66,6 +67,12 @@ def upload_clicked():
     # show image on cavas
     canvas_1.create_image(0, 0, anchor="nw", image=img1_tk)
 
+    ### Buttun to save
+    button_save = Button(text="Save file", command=save_clicked)
+    button_save.grid(column=1, row=3)
+
+
+def save_clicked():
     # save image with watermark
     file = filedialog.asksaveasfile(mode='w', defaultextension=".jpg",
                                     filetypes=(("jpg files", "*.jpg"), ("all files", "*.*")))
@@ -75,7 +82,7 @@ def upload_clicked():
     if file:
         rgb_image.save(file)  # saves the image to the input file name.
 
-#TODO create save button
+    message_saved = messagebox.showinfo("Message", "File saved")
 
 ### Set main window
 window = Tk()
